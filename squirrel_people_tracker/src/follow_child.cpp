@@ -94,7 +94,7 @@ void ChildFollowingAction::analysisCB(const people_msgs::PositionMeasurementArra
   ROS_DEBUG("Action in state: %s",state.toString().c_str());
   
 
-  geometry_msgs::PoseStamped robot_pose, child_pose, tmp_pose, out_pose;
+  geometry_msgs::PoseStamped robot_pose, child_pose, tmp_pose, out_pose, verify_pose;
   move_base_msgs::MoveBaseGoal move_base_goal_;
   
   double min_distance = 1000.0;
@@ -110,6 +110,7 @@ void ChildFollowingAction::analysisCB(const people_msgs::PositionMeasurementArra
 
   bool child_present = false;
   // calculate distance to select the closest personCB
+  ROS_INFO("%ld people received in message",msg->people.size());
   for (size_t i = 0; i < msg->people.size(); ++i)
   {
     double distance = (sqrt(msg->people[i].pos.x*msg->people[i].pos.x + msg->people[i].pos.y*msg->people[i].pos.y));
@@ -119,19 +120,20 @@ void ChildFollowingAction::analysisCB(const people_msgs::PositionMeasurementArra
     tmp_pose.pose.position.x = msg->people[i].pos.x;
     tmp_pose.pose.position.y = msg->people[i].pos.y;
     tmp_pose.pose.orientation =  tf::createQuaternionMsgFromYaw(0.0);
-    LookAtChild(&tmp_pose);
-    child_present = VerifyChildAtPose(&tmp_pose, height);
 
-    if (distance < min_distance && child_present)
+    if (distance < min_distance)
     {
-      LookAtChild(&tmp_pose, height);
+      LookAtChild(&tmp_pose);
       index = i;
       min_distance = distance;
+      verify_pose = tmp_pose;
     }
   }
+  child_present = VerifyChildAtPose(&verify_pose, height);
+  LookAtChild(&verify_pose, height);
 
   // we did not detect a child
-  if (index == 0)
+  if (index == 0 && !child_present)
     return;
 
   double alpha = 0.0;
@@ -306,18 +308,6 @@ bool ChildFollowingAction::VerifyChildAtPose(geometry_msgs::PoseStamped* pose, d
     vis_pub_.publish(marker);
     ros::Duration(0.01).sleep();
 
-    try
-    {
-	// Create the filtering object
-        pcl::io::savePCDFileASCII("/tmp/cloud.pcd", *cloud);
-    }
-    catch (pcl::IOException ex)
-    {
-	ROS_ERROR("%s", ex.what());
-	ros::Duration(1.0).sleep();
-        return false;
-    }
-
     pcl::PassThrough<PointT> pass;
     pass.setKeepOrganized(true);
     pass.setFilterFieldName("z");
@@ -337,17 +327,6 @@ bool ChildFollowingAction::VerifyChildAtPose(geometry_msgs::PoseStamped* pose, d
     PointT min_p, max_p;
     pcl::getMinMax3D(*outputCloud, min_p, max_p);
 
-    try
-    {
-	// Create the filtering object
-        pcl::io::savePCDFileASCII("/tmp/filtered_cloud.pcd", *outputCloud);
-    }
-    catch (pcl::IOException ex)
-    {
-	ROS_ERROR("%s", ex.what());
-	ros::Duration(1.0).sleep();
-        return false;
-    }
     ROS_INFO("min y: %f, max y: %f", min_p.y, max_p.y);
 
     point.header.frame_id = out_pose.header.frame_id;
@@ -355,8 +334,6 @@ bool ChildFollowingAction::VerifyChildAtPose(geometry_msgs::PoseStamped* pose, d
     point.point.x = out_pose.pose.position.x;
     point.point.y = min_p.y;
     point.point.z = out_pose.pose.position.z;
-
-    ROS_INFO("Highest point is at: x: %f, y: %f, z: %f in frame: %s", point.point.x, point.point.y, point.point.z, point.header.frame_id.c_str());
 
     marker.header.frame_id = scene.header.frame_id;
     marker.header.stamp = ros::Time(0);
@@ -393,6 +370,8 @@ bool ChildFollowingAction::VerifyChildAtPose(geometry_msgs::PoseStamped* pose, d
       ros::Duration(1.0).sleep();
       return false;
     }
+    ROS_INFO("Highest point is at: x: %f, y: %f, z: %f in frame: %s", point.point.x, point.point.y, point.point.z, point.header.frame_id.c_str());
+    ROS_INFO("Highest point is at: x: %f, y: %f, z: %f in frame: %s", point_max.point.x, point_max.point.y, point_max.point.z, point_max.header.frame_id.c_str());
 
     ROS_INFO("Highest point: %f", point_max.point.z);
     // plausibility check
@@ -403,7 +382,7 @@ bool ChildFollowingAction::VerifyChildAtPose(geometry_msgs::PoseStamped* pose, d
       return false;
     }
     height = point_max.point.z;
-    ROS_INFO("Height check success");
+    ROS_INFO("Height check success. Most likely a child.");
     return true;
   }
   return false;
