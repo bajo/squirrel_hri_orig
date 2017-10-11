@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>487</height>
+    <width>736</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../../../images/logo/squirrel-just-logo.png</normaloff>../../../../../../images/logo/squirrel-just-logo.png</iconset>
+    <normaloff>../../../../../../../../../../../../images/logo/squirrel-just-logo.png</normaloff>../../../../../../../../../../../../images/logo/squirrel-just-logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -28,7 +28,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>Camera movement</string>
+     <string>Neck tilt</string>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
@@ -36,42 +36,39 @@
        <x>0</x>
        <y>30</y>
        <width>160</width>
-       <height>95</height>
+       <height>104</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="upButton">
         <property name="text">
-         <string>UP</string>
+         <string>Up</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="straightButton">
         <property name="text">
-         <string>STRAIGHT</string>
+         <string>Center</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="downButton">
         <property name="text">
-         <string>DOWN</string>
+         <string>Down</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
-    <zorder>verticalLayoutWidget</zorder>
-    <zorder>resetSafetyButton</zorder>
-    <zorder>upButton_2</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>110</y>
+      <x>210</x>
+      <y>300</y>
       <width>161</width>
       <height>121</height>
      </rect>
@@ -116,14 +113,14 @@
      </rect>
     </property>
     <property name="title">
-     <string>Sound output</string>
+     <string>Facial and sound expressions</string>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>30</y>
-       <width>465</width>
+       <width>466</width>
        <height>41</height>
       </rect>
      </property>
@@ -131,35 +128,35 @@
       <item>
        <widget class="QPushButton" name="helloButton">
         <property name="text">
-         <string>HELLO</string>
+         <string>Hello</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="hereButton">
+       <widget class="QPushButton" name="cheerfulButton">
         <property name="text">
-         <string>HERE_HERE</string>
+         <string>Cheerful</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="ohnoButton">
+       <widget class="QPushButton" name="confusedButton">
         <property name="text">
-         <string>OH_NO</string>
+         <string>Confused</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="yeahButton">
+       <widget class="QPushButton" name="thinkButton">
         <property name="text">
-         <string>YEAH</string>
+         <string>Think</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="whatButton">
+       <widget class="QPushButton" name="noButton">
         <property name="text">
-         <string>WHAT?</string>
+         <string>No</string>
         </property>
        </widget>
       </item>
@@ -170,7 +167,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>260</y>
+      <y>300</y>
       <width>161</width>
       <height>121</height>
      </rect>
@@ -208,14 +205,224 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>110</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Neck pan</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>160</width>
+       <height>104</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QPushButton" name="neckleftButton">
+        <property name="text">
+         <string>Left</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="neckcenterButton">
+        <property name="text">
+         <string>Center</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="neckrightButton">
+        <property name="text">
+         <string>Right</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_6">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>110</y>
+      <width>161</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Head pan</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>160</width>
+       <height>104</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QPushButton" name="headleftButton">
+        <property name="text">
+         <string>Left</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="headcenterButton">
+        <property name="text">
+         <string>Center</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="headrightButton">
+        <property name="text">
+         <string>Right</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>250</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Link head and neck</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>300</y>
+      <width>161</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Door</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>160</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_8">
+      <item>
+       <widget class="QPushButton" name="doorOpenButton">
+        <property name="text">
+         <string>Open</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="doorCloseButton">
+        <property name="text">
+         <string>Close</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_8">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>450</y>
+      <width>481</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Base LED</string>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>466</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="redLEDButton">
+        <property name="text">
+         <string>Red</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="greenLEDButton">
+        <property name="text">
+         <string>Green</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="blueLEDButton">
+        <property name="text">
+         <string>Blue</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="whiteLEDButton">
+        <property name="text">
+         <string>White</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="offLEDButton">
+        <property name="text">
+         <string>Off</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>541</width>
-     <height>25</height>
+     <width>736</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSQUIRREL_expression_gui">
