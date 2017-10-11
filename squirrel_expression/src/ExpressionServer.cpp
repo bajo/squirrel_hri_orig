@@ -48,7 +48,7 @@ namespace SQUIRREL_expression
     // faces are currently:
     // blank cheerful confused look_down look_front look_left look_right no think
     faces[squirrel_hri_msgs::Expression::NEUTRAL] = "look_front";
-    faces[squirrel_hri_msgs::Expression::HELLO] = "cheerful";
+    faces[squirrel_hri_msgs::Expression::HELLO] = "look_front";
     faces[squirrel_hri_msgs::Expression::GOODBYE] = "cheerful";
     faces[squirrel_hri_msgs::Expression::OK] = "cheerful";
     faces[squirrel_hri_msgs::Expression::YES] = "cheerful";
@@ -70,9 +70,10 @@ namespace SQUIRREL_expression
 
     // HACK: sound play has problems on the Robotino, so just directly use aplay
     // This should be fixed at some point.
-    // sound_pub = nh.advertise<sound_play::SoundRequest>("/robotsound", 10, true);
+    sound_pub = nh.advertise<sound_play::SoundRequest>("/robotsound", 10, true);
 
-    face_client = nh.serviceClient<squirrel_interaction::DisplayScreen>("/display_screen");
+    face_pub = nh.advertise<std_msgs::String>("/face/emotion", 10, true);
+    face_client = nh.serviceClient<squirrel_interaction::DisplayScreen>("/face/emotion");
   }
 
   void ExpressionServer::performExpression(const std_msgs::String::ConstPtr& msg)
@@ -91,16 +92,18 @@ namespace SQUIRREL_expression
     {
       std::stringstream path;
       path << sound_dir << "/" << filename;
-      /*sound_play::SoundRequest sound_msg;
+      sound_play::SoundRequest sound_msg;
       sound_msg.sound = -2; // play file
       sound_msg.command = 1; // play once
       sound_msg.arg = path.str();
-      sound_pub.publish(sound_msg);*/
+      sound_pub.publish(sound_msg);
       // HACK: sound play has problems on the Robotino, so just directly use aplay
       // This should be fixed at some point.
       std::stringstream cmd;
       cmd << "aplay -D sysdefault " << path.str();
+      std::cout << cmd.str() << std::endl;
       system(cmd.str().c_str());
+      std::cout << "aplay did finish" << std::endl;
     }
     else
     {
@@ -111,6 +114,10 @@ namespace SQUIRREL_expression
   void ExpressionServer::performFace(const std::string &expression)
   {
     std::string face_msg = faces[expression];
+    std_msgs::String msg; 
+    msg.data = face_msg;
+    ROS_INFO("Expressions: make facial expression '%s'",face_msg.c_str());
+    face_pub.publish(msg);
     if(!face_msg.empty())
     {
       squirrel_interaction::DisplayScreen srv;

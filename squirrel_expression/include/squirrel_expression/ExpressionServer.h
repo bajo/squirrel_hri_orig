@@ -28,6 +28,7 @@ class ExpressionServer
 {
 private:
   ros::Publisher sound_pub;
+  ros::Publisher face_pub;
   ros::Publisher head_tilt_pub;
   ros::ServiceClient face_client;
 
